@@ -8,12 +8,12 @@ class Config(object):
     TOKEN = "7714215608:AAHGp9x86-wvlTityW8k6vfa1sLE_-6PIhI"
     mongo_url = "mongodb+srv://HaremDBBot:ThisIsPasswordForHaremDB@haremdb.swzjngj.mongodb.net/?retryWrites=true&w=majority"
     PHOTO_URL = ["https://telegra.ph/file/b925c3985f0f325e62e17.jpg", "https://telegra.ph/file/4211fb191383d895dab9d.jpg"]
-    SUPPORT_CHAT = "https://t.me/The2B2T"
-    UPDATE_CHAT = "CricketGrabberBot"
+    SUPPORT_CHAT = "The2B2T"
+    UPDATE_CHAT = "The2B2T"
     BOT_USERNAME = "CricketGrabberBot"
     CHARA_CHANNEL_ID = "-1002384039597"
-    api_id = 28735016
-    api_hash = "395761ed41e18de91ee4e18ff99afc81"
+    api_id = 26626068
+    api_hash = "bf423698bcbe33cfd58b11c78c42caa2"
 
     
 class Production(Config):
