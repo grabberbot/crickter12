@@ -15,7 +15,7 @@ async def harem(update: Update, context: CallbackContext, page=0) -> None:
     user = await user_collection.find_one({'id': user_id})
     if not user:
         if update.message:
-            await update.message.reply_text('You Have Not Guessed any Characters Yet..')
+            await update.message.reply_text('You Have Not Get any Crickters Yet..')
         else:
             await update.callback_query.edit_message_text('You Have Not Guessed any Characters Yet..')
         return
@@ -123,7 +123,7 @@ async def harem_callback(update: Update, context: CallbackContext) -> None:
 
     
     if query.from_user.id != user_id:
-        await query.answer("its Not Your Harem", show_alert=True)
+        await query.answer("its Not Your Collection", show_alert=True)
         return
 
     
@@ -132,6 +132,6 @@ async def harem_callback(update: Update, context: CallbackContext) -> None:
 
 
 
-application.add_handler(CommandHandler(["harem", "collection"], harem,block=False))
+application.add_handler(CommandHandler(["Get", "mycollection"], harem,block=False))
 harem_handler = CallbackQueryHandler(harem_callback, pattern='^harem', block=False)
 application.add_handler(harem_handler)
