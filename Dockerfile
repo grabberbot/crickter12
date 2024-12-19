@@ -64,7 +64,7 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy Python Requirements to /root/FallenRobot
-RUN git clonehttps://github.com/MyNameIsShekhar/WAIFU-HUSBANDO-CATCHER /root/WAIFU-HUSBANDO-CATCHER
+RUN git clone https://github.com/MyNameIsShekhar/WAIFU-HUSBANDO-CATCHER /root/WAIFU-HUSBANDO-CATCHER
 WORKDIR /root/WAIFU-HUSBANDO-CATCHER
 
 
