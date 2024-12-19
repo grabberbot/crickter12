@@ -17,7 +17,7 @@ async def harem(update: Update, context: CallbackContext, page=0) -> None:
         if update.message:
             await update.message.reply_text('You Have Not Get any Crickters Yet..')
         else:
-            await update.callback_query.edit_message_text('You Have Not Guessed any Characters Yet..')
+            await update.callback_query.edit_message_text('You Have Not Guessed any Crickters Yet..')
         return
 
     characters = sorted(user['characters'], key=lambda x: (x['anime'], x['id']))
