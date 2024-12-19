@@ -96,6 +96,96 @@ async def upload(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         await update.message.reply_text(f"An unexpected error occurred: {str(e)}")
 
+async def delete(update: Update, context: CallbackContext) -> None:
+    if str(update.effective_user.id) not in sudo_users:
+        await update.message.reply_text('Ask my Owner to use this Command...')
+        return
+
+    try:
+        args = context.args
+        if len(args) != 1:
+            await update.message.reply_text('Incorrect format... Please use: /delete ID')
+            return
+
+        
+        character = await collection.find_one_and_delete({'id': args[0]})
+
+        if character:
+            
+            await context.bot.delete_message(chat_id=CHARA_CHANNEL_ID, message_id=character['message_id'])
+            await update.message.reply_text('DONE')
+        else:
+            await update.message.reply_text('Deleted Successfully from db, but character not found In Channel')
+    except Exception as e:
+        await update.message.reply_text(f'{str(e)}')
+
+async def update(update: Update, context: CallbackContext) -> None:
+    if str(update.effective_user.id) not in sudo_users:
+        await update.message.reply_text('You do not have permission to use this command.')
+        return
+
+    try:
+        args = context.args
+        if len(args) != 3:
+            await update.message.reply_text('Incorrect format. Please use: /update id field new_value')
+            return
+
+        # Get character by ID
+        character = await collection.find_one({'id': args[0]})
+        if not character:
+            await update.message.reply_text('Character not found.')
+            return
+
+        # Check if field is valid
+        valid_fields = ['img_url', 'name', 'anime', 'rarity']
+        if args[1] not in valid_fields:
+            await update.message.reply_text(f'Invalid field. Please use one of the following: {", ".join(valid_fields)}')
+            return
+
+        # Update field
+        if args[1] in ['name', 'anime']:
+            new_value = args[2].replace('-', ' ').title()
+        elif args[1] == 'rarity':
+            rarity_map = {1: "⚪ Common", 2: "🟣 Rare", 3: "🟡 Legendary", 4: "🟢 Medium", 5: "💮 Special edition"}
+            try:
+                new_value = rarity_map[int(args[2])]
+            except KeyError:
+                await update.message.reply_text('Invalid rarity. Please use 1, 2, 3, 4, or 5.')
+                return
+        else:
+            new_value = args[2]
+
+        await collection.find_one_and_update({'id': args[0]}, {'$set': {args[1]: new_value}})
+
+        
+        if args[1] == 'img_url':
+            await context.bot.delete_message(chat_id=CHARA_CHANNEL_ID, message_id=character['message_id'])
+            message = await context.bot.send_photo(
+                chat_id=CHARA_CHANNEL_ID,
+                photo=new_value,
+                caption=f'<b>Character Name:</b> {character["name"]}\n<b>Anime Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
+                parse_mode='HTML'
+            )
+            character['message_id'] = message.message_id
+            await collection.find_one_and_update({'id': args[0]}, {'$set': {'message_id': message.message_id}})
+        else:
+            
+            await context.bot.edit_message_caption(
+                chat_id=CHARA_CHANNEL_ID,
+                message_id=character['message_id'],
+                caption=f'<b>Character Name:</b> {character["name"]}\n<b>Anime Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
+                parse_mode='HTML'
+            )
+
+        await update.message.reply_text('Updated Done in Database.... But sometimes it Takes Time to edit Caption in Your Channel..So wait..')
+    except Exception as e:
+        await update.message.reply_text(f'I guess did not added bot in channel.. or character uploaded Long time ago.. Or character not exits.. orr Wrong id')
+
+
 
 UPLOAD_HANDLER = CommandHandler('upload', upload, block=False)
 application.add_handler(UPLOAD_HANDLER)
+DELETE_HANDLER = CommandHandler('delete', delete, block=False)
+application.add_handler(DELETE_HANDLER)
+UPDATE_HANDLER = CommandHandler('update', update, block=False)
+application.add_handler(UPDATE_HANDLER)
