@@ -69,7 +69,7 @@ async def upload(update: Update, context: CallbackContext) -> None:
             message = await context.bot.send_photo(
                 chat_id=CHARA_CHANNEL_ID,
                 photo=img_url,
-                caption=f'<b>Character Name:</b> {character_name}\n<b>Anime Name:</b> {anime}\n<b>Rarity:</b> {rarity}\n<b>ID:</b> {char_id}\nAdded by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
+                caption=f'<b>Character Name:</b> {character_name}\n<b>Team Name:</b> {anime}\n<b>Rarity:</b> {rarity}\n<b>ID:</b> {char_id}\nAdded by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
                 parse_mode='HTML'
             )
             character['message_id'] = message.message_id
@@ -150,7 +150,7 @@ async def update(update: Update, context: CallbackContext) -> None:
                 message = await context.bot.send_photo(
                     chat_id=CHARA_CHANNEL_ID,
                     photo=new_value,
-                    caption=f'<b>Character Name:</b> {character["name"]}\n<b>Anime Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
+                    caption=f'<b>Character Name:</b> {character["name"]}\n<b>Team Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
                     parse_mode='HTML'
                 )
                 await collection.find_one_and_update({'id': char_id}, {'$set': {'message_id': message.message_id}})
@@ -160,7 +160,7 @@ async def update(update: Update, context: CallbackContext) -> None:
             await context.bot.edit_message_caption(
                 chat_id=CHARA_CHANNEL_ID,
                 message_id=character['message_id'],
-                caption=f'<b>Character Name:</b> {character["name"]}\n<b>Anime Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
+                caption=f'<b>Character Name:</b> {character["name"]}\n<b>Team Name:</b> {character["anime"]}\n<b>Rarity:</b> {character["rarity"]}\n<b>ID:</b> {character["id"]}\nUpdated by <a href="tg://user?id={update.effective_user.id}">{update.effective_user.first_name}</a>',
                 parse_mode='HTML'
             )
 
