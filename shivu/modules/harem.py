@@ -7,12 +7,12 @@ import random
 from telegram.ext import CommandHandler, CallbackContext, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-from shivu import anime_characters_table, user_totals_table, application
+from shivu import collection, user_collection, application
 
 async def harem(update: Update, context: CallbackContext, page=0) -> None:
     user_id = update.effective_user.id
 
-    user = await user_totals_table.find_one({'id': user_id})
+    user = await user_collection.find_one({'id': user_id})
     if not user:
         if update.message:
             await update.message.reply_text('You Have Not Guessed any Characters Yet..')
@@ -42,7 +42,7 @@ async def harem(update: Update, context: CallbackContext, page=0) -> None:
     current_grouped_characters = {k: list(v) for k, v in groupby(current_characters, key=lambda x: x['anime'])}
 
     for anime, characters in current_grouped_characters.items():
-        harem_message += f'\n<b>{anime} {len(characters)}/{await anime_characters_table.count_documents({"anime": anime})}</b>\n'
+        harem_message += f'\n<b>{anime} {len(characters)}/{await collection.count_documents({"anime": anime})}</b>\n'
 
         for character in characters:
             
@@ -135,4 +135,3 @@ async def harem_callback(update: Update, context: CallbackContext) -> None:
 application.add_handler(CommandHandler(["harem", "collection"], harem,block=False))
 harem_handler = CallbackQueryHandler(harem_callback, pattern='^harem', block=False)
 application.add_handler(harem_handler)
-    
