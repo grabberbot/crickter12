@@ -8,9 +8,9 @@ class Config(object):
     TOKEN = "7308335879:AAHTi3IjB6OcOtxsutJfAEdnfCuMnis5X6Y"
     mongo_url = "mongodb+srv://HaremDBBot:ThisIsPasswordForHaremDB@haremdb.swzjngj.mongodb.net/?retryWrites=true&w=majority"
     PHOTO_URL = ["https://telegra.ph/file/b925c3985f0f325e62e17.jpg", "https://telegra.ph/file/4211fb191383d895dab9d.jpg"]
-    SUPPORT_CHAT = "The2B2T"
-    UPDATE_CHAT = "The2B2T"
-    BOT_USERNAME = "CricketGrabberBot"
+    SUPPORT_CHAT = "https://t.me/GetCricketPlayers"
+    UPDATE_CHAT = "https://t.me/GetCricketPlayers"
+    BOT_USERNAME = "Get_Cricket_Players_Bot"
     CHARA_CHANNEL_ID = "-1002437903458"
     api_id = 28735016
     api_hash = "395761ed41e18de91ee4e18ff99afc81"
