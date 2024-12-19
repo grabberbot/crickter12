@@ -8,8 +8,8 @@ class Config(object):
     TOKEN = "7308335879:AAHTi3IjB6OcOtxsutJfAEdnfCuMnis5X6Y"
     mongo_url = "mongodb+srv://HaremDBBot:ThisIsPasswordForHaremDB@haremdb.swzjngj.mongodb.net/?retryWrites=true&w=majority"
     PHOTO_URL = ["https://telegra.ph/file/b925c3985f0f325e62e17.jpg", "https://telegra.ph/file/4211fb191383d895dab9d.jpg"]
-    SUPPORT_CHAT = "t.me/GetCricketPlayers"
-    UPDATE_CHAT = "t.me/GetCricketPlayers"
+    SUPPORT_CHAT = "GetCricketPlayers"
+    UPDATE_CHAT = "GetCricketPlayers"
     BOT_USERNAME = "Get_Cricket_Players_Bot"
     CHARA_CHANNEL_ID = "-1002437903458"
     api_id = 28735016
