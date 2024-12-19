@@ -12,8 +12,8 @@ class Config(object):
     UPDATE_CHAT = "The2B2T"
     BOT_USERNAME = "CricketGrabberBot"
     CHARA_CHANNEL_ID = "-1002384039597"
-    api_id = 26626068
-    api_hash = "bf423698bcbe33cfd58b11c78c42caa2"
+    api_id = 28735016
+    api_hash = "395761ed41e18de91ee4e18ff99afc81"
 
     
 class Production(Config):
